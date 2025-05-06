@@ -42,7 +42,7 @@ app.use(express.urlencoded({ extended: true }));
 //end Middleware
 
 //no route for the sitedata yet 
-const siteData = require("./data/siteData");
+const siteData = require("./data/siteInventory");
 
 //initialize and retain an index route to automatically render a message when the server starts
 app.get("/", (request, response, next) => {
@@ -62,7 +62,7 @@ app.get("/admin", (request, response, next) => {
     success: { message: "This route points to the Admin Console page" },
     // key of data and a value of an object that has isSigned as the parameter. 
     data: {
-        isSignedIn:isSignedIn
+        signedIn:signedIn
     },
     statusCode: 200,
   });
@@ -77,50 +77,50 @@ app.get("/site-routes", (request, response, next) => {
   });
   
 
-// ----------AWESOME AUTHORS --------------
-app.get("/authors", (request, response, next) => {
-  // response.send("This route points to the Author page");
+// // ----------AWESOME AUTHORS --------------
+// app.get("/authors", (request, response, next) => {
+//   // response.send("This route points to the Author page");
 
-  response.status(200).json({
-    success: { message: "This route points to the Author page" },
-    // key of data and a value of an object that has the array as the paramete
-    data: {
-        authors:authors
-    },
-    statusCode: 200,
-  });
-});
-app.get("/authors/create", (request, response, next) => {
-  response.status(200).json({
-    success: { message: "This route points to the Create Author page" },
-    statusCode: 200,
-  });
-});
+//   response.status(200).json({
+//     success: { message: "This route points to the Author page" },
+//     // key of data and a value of an object that has the array as the paramete
+//     data: {
+//         authors:authors
+//     },
+//     statusCode: 200,
+//   });
+// });
+// app.get("/authors/create", (request, response, next) => {
+//   response.status(200).json({
+//     success: { message: "This route points to the Create Author page" },
+//     statusCode: 200,
+//   });
+// });
 
-app.get("/authors/:_id", (request, response, next) => {
-    const params = request.params;
-    console.log(params); //this doesn't actually log unless it's in the response
-    const {_id} = params;
-    const foundAuthor = authors.find((author)=> author._id ===_id);
+// app.get("/authors/:_id", (request, response, next) => {
+//     const params = request.params;
+//     console.log(params); //this doesn't actually log unless it's in the response
+//     const {_id} = params;
+//     const foundAuthor = authors.find((author)=> author._id ===_id);
     
-    if (foundAuthor) {
-        response.status(200).json({
-            success: { message: "This route points to the specific author via the ID" },
-            statusCode: 200,
-        });        
-    }else{ //Otherwise, send a 404 error with the message of "There is no book with this id", with the corresponding statusCode.
-        response.status(404).json({
-            error:{message: "There is no author with this id"}, 
-            statusCode:404
-        });
-    };
+//     if (foundAuthor) {
+//         response.status(200).json({
+//             success: { message: "This route points to the specific author via the ID" },
+//             statusCode: 200,
+//         });        
+//     }else{ //Otherwise, send a 404 error with the message of "There is no book with this id", with the corresponding statusCode.
+//         response.status(404).json({
+//             error:{message: "There is no author with this id"}, 
+//             statusCode:404
+//         });
+//     };
   
 
-});
+// });
 
 //-------------------------------BONUS-------------------------Using the information in the slides regarding route parameters, can you define a route that points to the username of CodeSquader?
 
-app.get(`/:${username}`, (request, response,next) => {
+app.get(`/:${siteData.username}`, (request, response,next) => {
     response.status(200).json({
         success:{message:"This route points to the CodeSquader page"},
         statusCode: 200
@@ -130,54 +130,54 @@ app.get(`/:${username}`, (request, response,next) => {
 
 
 
-// ----------BOOK BESTIES --------------
+// // ----------BOOK BESTIES --------------
 
-app.get("/books", (request, response, next) => {
-  // response.send("This route points to the Books page")
-  response.status(200).json({
-    success: { message: "This route points to the Books page" },
-    // include the proper array of data that is needed to be passed in a key of data and 
+// app.get("/books", (request, response, next) => {
+//   // response.send("This route points to the Books page")
+//   response.status(200).json({
+//     success: { message: "This route points to the Books page" },
+//     // include the proper array of data that is needed to be passed in a key of data and 
 
-    data: {
-        //a value of an object that has the array as the parameter.
-        books: books
-    },
-    statusCode: 200,
-  });
-});
-app.get("/books/create", (request, response, next) => {
-  response.status(200).json({
-    success: { message: "This route points to the Create Book page" },
-    statusCode: 200,
-  });
-});
+//     data: {
+//         //a value of an object that has the array as the parameter.
+//         books: books
+//     },
+//     statusCode: 200,
+//   });
+// });
+// app.get("/books/create", (request, response, next) => {
+//   response.status(200).json({
+//     success: { message: "This route points to the Create Book page" },
+//     statusCode: 200,
+//   });
+// });
 
-//the colon in the /books/:_id tells the server that this is a parameter that we are passing through in the
-app.get("/books/:_id", (request, response, next) => {
-    const params = request.params; //store the request.params object in a variable
-    console.log(params);
-    const {_id} = params; //retrieve the _id from the parameters using object destructuring 
+// //the colon in the /books/:_id tells the server that this is a parameter that we are passing through in the
+// app.get("/books/:_id", (request, response, next) => {
+//     const params = request.params; //store the request.params object in a variable
+//     console.log(params);
+//     const {_id} = params; //retrieve the _id from the parameters using object destructuring 
 
-    // Create a new variable called foundBook and use the .find method on books array to find the book with the given _id.
-    const foundBook = books.find((book)=>book._id ===_id);
+//     // Create a new variable called foundBook and use the .find method on books array to find the book with the given _id.
+//     const foundBook = books.find((book)=>book._id ===_id);
 
-    if (foundBook) {// if...else statement to detect if there is a book found.  If the book is found, log the key of data and a value of an object that has the foundBook as the parameter after the success message. 
-        response.status(200).json({
-            success: {message:"This route points to the specific book via the ID"},
-            key:{
-                book:foundBook
-            },
-            statusCode:200
-        });
-    } else{ //Otherwise, send a 404 error with the message of "There is no book with this id", with the corresponding statusCode.
-        response.status(404).json({
-            error:{message: "There is no book with this id"}, 
-            statusCode:404
-        })
-    };
+//     if (foundBook) {// if...else statement to detect if there is a book found.  If the book is found, log the key of data and a value of an object that has the foundBook as the parameter after the success message. 
+//         response.status(200).json({
+//             success: {message:"This route points to the specific book via the ID"},
+//             key:{
+//                 book:foundBook
+//             },
+//             statusCode:200
+//         });
+//     } else{ //Otherwise, send a 404 error with the message of "There is no book with this id", with the corresponding statusCode.
+//         response.status(404).json({
+//             error:{message: "There is no book with this id"}, 
+//             statusCode:404
+//         })
+//     };
     
 
-});
+// });
 
 // ----------------------------Per 4: CW -----------------------------------//
 // We have given you some starter files to begin with: siteInventory.js, booksInventory.js, booksControllers.js, booksRoutes.js

@@ -1,8 +1,8 @@
-const authorsInventory = require("../data/authorsInventory");
-const bookInventory = require("../data/booksInventory");
+const authorInventory = require("../data/authorInventory");
+const bookInventory = require("../data/bookInventory");
 
 const getAllAuthors = async(request, response, next) => {
-    const authors = authorsInventory; 
+    const authors = authorInventory; 
 
     try{
         return response.status(200).json({
@@ -25,7 +25,7 @@ const getAllAuthors = async(request, response, next) => {
 
 const getAuthor = async(request, response, next) => {
     const {_id } = request.params; 
-    const foundAuthor = authorsInventory.find((author)=> author._id===_id);
+    const foundAuthor = authorInventory.find((author)=> author._id===_id);
 
     try {
         return response.status(200).json({

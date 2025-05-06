@@ -1,7 +1,7 @@
 //Cut out the authorsList array from app.js and paste into authorInventory.js.
 
 // Array containing 3 objects, each object representing information about an author. This is a representation of information that would actually be stored in a database. Since we're not to databases yet, we'll use this array instead.
-const authors = [
+const authorInventory = [
     {
       _id: "001",
       firstName: "Jenny",
