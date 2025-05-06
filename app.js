@@ -20,6 +20,15 @@ app.use(morgan("combined"));
 //combined - show a log that is moe comprehensive
 //dev - will show simpler information
 
+// Define the routing variable for authorRoutes and booksRoutes 
+const authorsRoutes = require("./routes/authorsRoutes");
+const booksRoutes = require("./routes/booksRoutes");
+
+//Tell the app to use the routing variables
+app.use("/api/books", booksRoutes);
+app.use("/api/authors", authorsRoutes);
+
+
 //-----------------------------------------------------------------------------------
 // Site Data
 const username = "CodeSquader";
@@ -58,31 +67,6 @@ const books = [
   },
 ];
 
-// Array containing 3 objects, each object representing information about an author. This is a representation of information that would actually be stored in a database. Since we're not to databases yet, we'll use this array instead.
-const authors = [
-  {
-    _id: "001",
-    firstName: "Jenny",
-    lastName: "Nimmo",
-    birthYear: 1944,
-    bio: "Jenny Nimmo is a British author of children's books, including fantasy and adventure novels, chapter books, and picture books.",
-  },
-  {
-    _id: "002",
-    firstName: "Katsuhiro",
-    lastName: "Otomo",
-    birthYear: 1954,
-    bio: "Katsuhiro Otomo is a Japanese manga artist, screenwriter, animator and film director. He is best known as the creator of Akira, in terms of both the original 1982 manga series and the 1988 animated film adaptation.",
-  },
-  {
-    _id: "003",
-    firstName: "Roald",
-    lastName: "Dahl",
-    birthYear: 1916,
-    bio: "Roald Dahl was a British author who penned 19 children's books over his decades-long writing career.",
-  },
-];
-//------------------------------------------------------------------------------------------------------------------------
 
 //---------------------Per 2: CW: Dynamic Node Review -------------------------------
 // Tell the app to use express to bundle all of the files within the  public directory
@@ -237,6 +221,9 @@ app.get("/books/:_id", (request, response, next) => {
     
 
 });
+
+// ----------------------------Per 4: CW -----------------------------------//
+// We have given you some starter files to begin with: siteInventory.js, booksInventory.js, booksControllers.js, booksRoutes.js
 
 
 // ---------------------------Per 3: CW: Dynamic Pass Data--------------------------------/
