@@ -12,6 +12,9 @@ const cors = require("cors");
 //morgan
 const morgan = require("morgan");
 
+//helmet 
+const helmet = requite("helmet");
+
 // NEW: add the path module
 const path = require("node:path");
 
@@ -19,15 +22,6 @@ app.use(cors());
 app.use(morgan("combined"));
 //combined - show a log that is moe comprehensive
 //dev - will show simpler information
-
-// Define the routing variable for authorRoutes and booksRoutes 
-const authorsRoutes = require("./routes/authorsRouter");
-const booksRoutes = require("./routes/booksRouter");
-
-//Tell the app to use the routing variables
-app.use("/api/books", booksRoutes);
-app.use("/api/authors", authorsRoutes);
-
 
 //---------------------Per 2: CW: Dynamic Node Review -------------------------------
 // Tell the app to use express to bundle all of the files within the  public directory
@@ -39,7 +33,17 @@ app.use(express.json());
 //Tell the app to use express and urlencoded to
 app.use(express.urlencoded({ extended: true }));
 
-//end Middleware
+//end Middleware----------------------------------------------------------------------------------------------------
+
+
+
+// Define the routing variable for authorRoutes and booksRoutes 
+const authorsRoutes = require("./routes/authorRoutes");
+const booksRoutes = require("./routes/bookRoutes");
+
+//Tell the app to use the routing variables
+app.use("/api/books", booksRoutes);
+app.use("/api/authors", authorsRoutes);
 
 //no route for the sitedata yet 
 const siteData = require("./data/siteInventory");
@@ -77,46 +81,9 @@ app.get("/site-routes", (request, response, next) => {
   });
   
 
-// // ----------AWESOME AUTHORS --------------
-// app.get("/authors", (request, response, next) => {
-//   // response.send("This route points to the Author page");
+// // ----------AWESOME AUTHORS   --------------> authorsRouter.js
 
-//   response.status(200).json({
-//     success: { message: "This route points to the Author page" },
-//     // key of data and a value of an object that has the array as the paramete
-//     data: {
-//         authors:authors
-//     },
-//     statusCode: 200,
-//   });
-// });
-// app.get("/authors/create", (request, response, next) => {
-//   response.status(200).json({
-//     success: { message: "This route points to the Create Author page" },
-//     statusCode: 200,
-//   });
-// });
-
-// app.get("/authors/:_id", (request, response, next) => {
-//     const params = request.params;
-//     console.log(params); //this doesn't actually log unless it's in the response
-//     const {_id} = params;
-//     const foundAuthor = authors.find((author)=> author._id ===_id);
-    
-//     if (foundAuthor) {
-//         response.status(200).json({
-//             success: { message: "This route points to the specific author via the ID" },
-//             statusCode: 200,
-//         });        
-//     }else{ //Otherwise, send a 404 error with the message of "There is no book with this id", with the corresponding statusCode.
-//         response.status(404).json({
-//             error:{message: "There is no author with this id"}, 
-//             statusCode:404
-//         });
-//     };
-  
-
-// });
+// // ----------BOOK BESTIES --------------> booksRouter.js
 
 //-------------------------------BONUS-------------------------Using the information in the slides regarding route parameters, can you define a route that points to the username of CodeSquader?
 
@@ -127,60 +94,6 @@ app.get(`/:${siteData.username}`, (request, response,next) => {
 
     });
 })
-
-
-
-// // ----------BOOK BESTIES --------------
-
-// app.get("/books", (request, response, next) => {
-//   // response.send("This route points to the Books page")
-//   response.status(200).json({
-//     success: { message: "This route points to the Books page" },
-//     // include the proper array of data that is needed to be passed in a key of data and 
-
-//     data: {
-//         //a value of an object that has the array as the parameter.
-//         books: books
-//     },
-//     statusCode: 200,
-//   });
-// });
-// app.get("/books/create", (request, response, next) => {
-//   response.status(200).json({
-//     success: { message: "This route points to the Create Book page" },
-//     statusCode: 200,
-//   });
-// });
-
-// //the colon in the /books/:_id tells the server that this is a parameter that we are passing through in the
-// app.get("/books/:_id", (request, response, next) => {
-//     const params = request.params; //store the request.params object in a variable
-//     console.log(params);
-//     const {_id} = params; //retrieve the _id from the parameters using object destructuring 
-
-//     // Create a new variable called foundBook and use the .find method on books array to find the book with the given _id.
-//     const foundBook = books.find((book)=>book._id ===_id);
-
-//     if (foundBook) {// if...else statement to detect if there is a book found.  If the book is found, log the key of data and a value of an object that has the foundBook as the parameter after the success message. 
-//         response.status(200).json({
-//             success: {message:"This route points to the specific book via the ID"},
-//             key:{
-//                 book:foundBook
-//             },
-//             statusCode:200
-//         });
-//     } else{ //Otherwise, send a 404 error with the message of "There is no book with this id", with the corresponding statusCode.
-//         response.status(404).json({
-//             error:{message: "There is no book with this id"}, 
-//             statusCode:404
-//         })
-//     };
-    
-
-// });
-
-// ----------------------------Per 4: CW -----------------------------------//
-// We have given you some starter files to begin with: siteInventory.js, booksInventory.js, booksControllers.js, booksRoutes.js
 
 
 // ---------------------------Per 3: CW: Dynamic Pass Data--------------------------------/
