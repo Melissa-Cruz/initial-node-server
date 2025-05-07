@@ -13,7 +13,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 
 //helmet 
-const helmet = requite("helmet");
+const helmet = require("helmet");
 
 // NEW: add the path module
 const path = require("node:path");

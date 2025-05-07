@@ -5,7 +5,7 @@ const express = require("express");
 const router = express.Router();
 
 //summon all the controller 
-const { getAllAuthors, getAuthor,} = require("../controllers/authorsControllers")
+const { getAllAuthors, getAuthor, createAuthor,updateAuthor, deleteAuthor} = require("../controllers/authorsControllers")
 
 router.get("/", getAllAuthors);
 router.get("/:_id", getAuthor);
