@@ -26,6 +26,18 @@ const bookInventory = [
       synopsis:
         "A girl gifted with a keen intellect and psychic powers uses both to get even with her callous family and free her kindly schoolteacher from the tyrannical grip of a headmistress."
     },
+
+    {
+      _id: "004",
+      title: "Melissa is Amazing",
+      author: "Melissa Cruz",
+      price: 50,
+      starRating: 5,
+      synopsis:
+        "A girl gifted with a keen intellect and psychic powers creating wealth."
+    },
+
   ];
+  
   
   module.exports = bookInventory;
