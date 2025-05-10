@@ -40,10 +40,12 @@ app.use(express.urlencoded({ extended: true }));
 // Define the routing variable for authorRoutes and booksRoutes 
 const authorsRoutes = require("./routes/authorRoutes");
 const booksRoutes = require("./routes/bookRoutes");
+const authRoutes = require("./routes/authRouter");
 
 //Tell the app to use the routing variables
 app.use("/api/books", booksRoutes);
 app.use("/api/authors", authorsRoutes);
+app.use("/api/auth", authRoutes);
 
 //no route for the sitedata yet 
 const siteData = require("./data/siteInventory");
